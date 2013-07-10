@@ -8,7 +8,7 @@ PHP class for interacting with Amazon Elastic Transcoder.
 ```php
 <?php
 
-require('ElasticTranscoder3.php');
+require('ElasticTranscoder.php');
 
 AWS_ET::setAuth('awsAccessKey', 'awsPrivateKey'); // Set AWS credentials
 
