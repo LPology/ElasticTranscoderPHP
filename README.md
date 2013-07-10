@@ -10,22 +10,21 @@ PHP class for interacting with Amazon Elastic Transcoder.
 
 require('ElasticTranscoder3.php');
 
-$inputKey = 'inFile';
-$outputKey = 'outFile.mp4';
 $presetId = 'presetId';
 $pipelineId = 'pipelineId';
+
+$input = array('Key' => 'inputFile');
+$output = array(
+  'Key' => 'outputFile.mp4',
+  'PresetId' => $presetId
+ );
 
 AWS_ET::setAuth('awsAccessKey', 'awsPrivateKey');
 
 $result = AWS_ET::createJob(
+  $input,
   array(
-    'Key' => $inputKey
-  ),
-  array(
-    array(
-    'Key' => $outputKey,
-    'PresetId' => $presetId
-    )
+    $output
   ),
   $pipelineId
 );
