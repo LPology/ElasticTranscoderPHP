@@ -28,6 +28,4 @@ if (!$result) {
 } else {
   echo 'New job ID: ' . $result['Job']['Id'];
 }
-
-?>
 ```
