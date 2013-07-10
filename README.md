@@ -21,13 +21,7 @@ $output = array(
 
 AWS_ET::setAuth('awsAccessKey', 'awsPrivateKey');
 
-$result = AWS_ET::createJob(
-  $input,
-  array(
-    $output
-  ),
-  $pipelineId
-);
+$result = AWS_ET::createJob($input, array($output), $pipelineId);
 
 if (!$result) {
   echo AWS_ET::getErrorMsg();
