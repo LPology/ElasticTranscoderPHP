@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Amazon Elastic Transcoder class
  * Version 1.0
