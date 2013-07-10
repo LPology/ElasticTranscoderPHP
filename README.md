@@ -29,3 +29,5 @@ if (!$result) {
   echo 'New job ID: ' . $result['Job']['Id'];
 }
 ```
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/429c074cf07de7bee3ca6af902cd8141 "githalytics.com")](http://githalytics.com/LPology/ElasticTranscoderPHP)
