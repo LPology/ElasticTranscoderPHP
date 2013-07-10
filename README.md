@@ -6,7 +6,7 @@ PHP class for interacting with Amazon Elastic Transcoder.
 <strong>More Information:</strong><br />
 <a href="http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/getting-started.html">Getting Started with Elastic Transcoder</a>
 
-#### Creating a transcoding job ###
+#### Getting Started: Creating a transcoding job ###
 
 ```php
 <?php
