@@ -3,7 +3,7 @@
 /**
  * Amazon Elastic Transcoder class
  * Version 1.0
- * https://github.com/LPology/Simple-Ajax-Uploader
+ * https://github.com/LPology/ElasticTranscoderPHP
  *
  * Copyright 2013 LPology, LLC
  * Released under the MIT license
