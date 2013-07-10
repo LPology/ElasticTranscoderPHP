@@ -3,7 +3,7 @@ ElasticTranscoderPHP
 
 PHP class for interacting with Amazon Elastic Transcoder.
 
-#### Creating a new transcoding job ###
+#### Creating a transcoding job ###
 
 ```php
 <?php
@@ -27,4 +27,5 @@ if (!$result) {
   echo 'New job ID: ' . $result['Job']['Id'];
 }
 
+?>
 ```
