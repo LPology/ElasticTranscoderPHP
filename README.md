@@ -67,8 +67,10 @@ AWS_ET::cancelJob( string $jobId );
 
 #### Pipeline Operations ####
 
+Create a new pipeline:
+
 ```php
-AWS_ET::createPipeline();
+AWS_ET::createPipeline( string $name, string $inputBucket, string $outputBucket, string $role [, array $notifications ] );
 ```
 
 #### License ####
