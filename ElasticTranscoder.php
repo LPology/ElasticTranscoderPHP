@@ -12,6 +12,7 @@ class AWS_ET {
 
   private static $AwsAccessKey;
   private static $AwsPrivateKey;
+  private static $Region = 'us-east-1';  
   private static $Date;
   private static $RequestBody;
   private static $HttpRequestMethod;
@@ -20,8 +21,6 @@ class AWS_ET {
   private static $ResponseStatus;
   private static $Response;
   private static $ErrorMsg;
-
-  public static $Region = 'us-east-1';
 
   public function __construct ($awsAccessKey = null, $awsPrivateKey = null, $region = null) {
     if ($awsAccessKey !== null && $awsPrivateKey !== null) {
@@ -431,6 +430,16 @@ class AWS_ET {
   public static function setAuth($awsAccessKey, $awsPrivateKey) {
     self::$AwsAccessKey = $awsAccessKey;
     self::$AwsPrivateKey = $awsPrivateKey;
+  }
+  
+  /**
+  * Set Amazon region
+  *
+  * @param string $region AWS region
+  * @return void
+  */    
+  public static function setRegion($region) {
+    self::$Region = $region;
   }
 
   /**
