@@ -47,7 +47,7 @@ AWS_ET::listJobsByPipeline( string $pipelineId [, boolean $ascending = true ] );
 List jobs by status:
 
 ```php
-AWS_ET::listJobsByPipeline( string $status );
+AWS_ET::listJobsByStatus( string $status );
 ```
 
 Get job info:
