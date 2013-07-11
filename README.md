@@ -8,14 +8,16 @@ PHP class for interacting with Amazon Elastic Transcoder.
 Object-oriented method:
 
 ```php
-$et = new AWS_ET($awsAccessKey, $awsSecretKey);
+$et = new AWS_ET($awsAccessKey, $awsSecretKey, $awsRegion);
 ```
 
 Statically:
 
 ```php
-AWS_ET::setAuth($awsAccessKey, $awsSecretKey);
+AWS_ET::setAuth($awsAccessKey, $awsSecretKey, $awsRegion);
 ```
+
+<strong>Note:</strong> us-east-1 is the default region setting. The third parameter is optional.
 
 #### Job Operations ####
 
@@ -97,7 +99,7 @@ AWS_ET::updatePipelineStatus( string $pipelineId, string $status );
 Update pipeline notification settings:
 
 ```php
-AWS_ET::updatePipelineNotifications( string $pipelineId, array $notifications );
+AWS_ET::updatePipelineNotifications( string $pipelineId [, array $notifications ] );
 ```
 
 Delete a pipeline:
