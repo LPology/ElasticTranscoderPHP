@@ -1,7 +1,7 @@
 ElasticTranscoderPHP
 ====================
 
-PHP class for interacting with Amazon Elastic Transcoder.
+PHP class for interacting with Amazon Elastic Transcoder that does not require PEAR.
 
 #### Usage ###
 
