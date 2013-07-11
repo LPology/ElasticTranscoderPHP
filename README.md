@@ -17,7 +17,7 @@ Statically:
 AWS_ET::setAuth($awsAccessKey, $awsSecretKey, $awsRegion);
 ```
 
-<strong>Note:</strong> us-east-1 is the default region setting. The third parameter is optional.
+<strong>Note:</strong> us-east-1 is the default AWS region setting. The third parameter is optional for us-east-1 users.
 
 #### Job Operations ####
 
