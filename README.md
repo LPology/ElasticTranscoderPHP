@@ -44,7 +44,7 @@ if (!$result) {
 List jobs by pipeline:
 
 ```php
-AWS_ET::listJobsByPipeline( string $pipelineId [, $ascending = true ] );
+AWS_ET::listJobsByPipeline( string $pipelineId [, boolean $ascending = true ] );
 ```
 
 List jobs by status:
@@ -170,7 +170,7 @@ AWS_ET::getResponse();
 Get error message, if any:
 
 ```php
-AWS_ET::getErrorMsg()
+AWS_ET::getErrorMsg();
 ```
 
 #### License ####
