@@ -100,7 +100,7 @@ AWS_ET::updatePipelineStatus( string $pipelineId, string $status );
 Update pipeline notification settings:
 
 ```php
-AWS_ET::updatePiplineNotifications( string $pipelineId, array $notifications );
+AWS_ET::updatePipelineNotifications( string $pipelineId, array $notifications );
 ```
 
 Delete a pipeline:
