@@ -73,6 +73,56 @@ Create a new pipeline:
 AWS_ET::createPipeline( string $name, string $inputBucket, string $outputBucket, string $role [, array $notifications ] );
 ```
 
+List pipelines:
+
+```php
+AWS_ET::listPipelines();
+```
+
+Get info about a pipeline:
+
+```php
+AWS_ET::readPipeline( string $pipelineId );
+```
+
+Update pipeline settings:
+
+```php
+AWS_ET::updatePipeline( string $pipelineId, array $updates );
+```
+
+Change the status of a pipeline (active/paused):
+
+```php
+AWS_ET::updatePipelineStatus( string $pipelineId, string $status );
+```
+
+Update pipeline notification settings:
+
+```php
+AWS_ET::updatePiplineNotifications( string $pipelineId, array $notifications );
+```
+
+Delete a pipeline:
+
+```php
+AWS_ET::deletePipeline( string $pipelineId );
+```
+
+Test the settings for a pipeline:
+
+```php
+AWS_ET::testRole( string $inputBucket, string $outputBucket, string $role, array $topics );
+```
+
+#### Preset Operations ####
+
+Create a preset:
+
+```php
+AWS_ET::createPreset( string $name, string $description [, string $container = 'mp4' ] [, array $audio ] [, array $video ] [, array $thumbnails ]);
+```
+
 #### License ####
 
 Released under the MIT license.
