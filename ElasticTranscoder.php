@@ -27,7 +27,7 @@ class AWS_ET {
       self::setAuth($awsAccessKey, $awsPrivateKey);
     }
     if ($region !== null) {
-      self::$Region = strtolower($region);
+      self::setRegion($region);
     }
   }
 
@@ -439,7 +439,7 @@ class AWS_ET {
   * @return void
   */    
   public static function setRegion($region) {
-    self::$Region = $region;
+    self::$Region = strtolower($region);
   }
 
   /**
