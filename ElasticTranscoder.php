@@ -239,7 +239,7 @@ class AWS_ET {
   * @param array $notifications new notification settings
   * @return array | false
   */
-  public static function updatePiplineNotifications($pipelineId, $notifications = array()) {
+  public static function updatePipelineNotifications($pipelineId, $notifications = array()) {
     self::$HttpRequestMethod = 'POST';
     self::$Uri = '/2012-09-25/pipelines/'.$pipelineId.'/notifications';
     $requestBody = json_encode(array(
