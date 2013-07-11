@@ -172,6 +172,7 @@ Get error message, if any:
 AWS_ET::getErrorMsg();
 ```
 
+<br />
 <strong>More Information:</strong><br />
 <a href="http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/getting-started.html">Getting Started with Elastic Transcoder</a>
 
