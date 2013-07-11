@@ -73,7 +73,7 @@ Create a new pipeline:
 AWS_ET::createPipeline( string $name, string $inputBucket, string $outputBucket, string $role [, array $notifications ] );
 ```
 
-List pipelines:
+Get a list pipelines:
 
 ```php
 AWS_ET::listPipelines();
@@ -139,6 +139,38 @@ Delete a preset:
 
 ```php
 AWS_ET::deletePreset( string $presetId );
+```
+
+#### Misc. ####
+
+Set AWS authentication credentials:
+
+```php
+AWS_ET::setAuth( string $awsAccessKey, string $awsSecretKey );
+```
+
+Set AWS region:
+
+```php
+AWS_ET::setRegion( string $region = 'us-east-1' );
+```
+
+Get HTTP status code of server response:
+
+```php
+AWS_ET::getStatusCode();
+```
+
+Get server response:
+
+```php
+AWS_ET::getResponse();
+```
+
+Get error message, if any:
+
+```php
+AWS_ET::getErrorMsg()
 ```
 
 #### License ####
