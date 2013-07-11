@@ -3,9 +3,6 @@ ElasticTranscoderPHP
 
 PHP class for interacting with Amazon Elastic Transcoder.
 
-<strong>More Information:</strong><br />
-<a href="http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/getting-started.html">Getting Started with Elastic Transcoder</a>
-
 #### Usage ###
 
 Object-oriented method:
@@ -22,7 +19,7 @@ AWS_ET::setAuth($awsAccessKey, $awsSecretKey);
 
 #### Job Operations ####
 
-Creating a new transcoding job:
+Creating a transcoding job:
 
 ```php
 $pipelineId = 'pipelineId';
@@ -172,6 +169,10 @@ Get error message, if any:
 ```php
 AWS_ET::getErrorMsg();
 ```
+
+#### More Information ####
+
+<a href="http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/getting-started.html">Getting Started with Elastic Transcoder</a>
 
 #### License ####
 
