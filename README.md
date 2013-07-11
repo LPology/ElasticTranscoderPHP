@@ -123,6 +123,24 @@ Create a preset:
 AWS_ET::createPreset( string $name, string $description [, string $container = 'mp4' ] [, array $audio ] [, array $video ] [, array $thumbnails ]);
 ```
 
+List all presets:
+
+```php
+AWS_ET::listPresets();
+```
+
+Get info about a preset:
+
+```php
+AWS_ET::readPreset( string $presetId );
+```
+
+Delete a preset:
+
+```php
+AWS_ET::deletePreset( string $presetId );
+```
+
 #### License ####
 
 Released under the MIT license.
