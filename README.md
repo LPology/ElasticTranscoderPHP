@@ -56,13 +56,19 @@ AWS_ET::listJobsByPipeline( string $status );
 Get job info:
 
 ```php
-AWS_ET::readJobs( string $jobId );
+AWS_ET::readJob( string $jobId );
 ```
 
 Cancel a job:
 
 ```php
-AWS_ET::cancelJobs( string $jobId );
+AWS_ET::cancelJob( string $jobId );
+```
+
+#### Pipeline Operations ####
+
+```php
+AWS_ET::createPipeline();
 ```
 
 #### License ####
