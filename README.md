@@ -20,12 +20,11 @@ Statically:
 AWS_ET::setAuth($awsAccessKey, $awsSecretKey);
 ```
 
-#### Job operations ####
+#### Job Operations ####
 
 Creating a new transcoding job:
 
 ```php
-<?php
 $pipelineId = 'pipelineId';
 $input = array('Key' => 'inputFile');
 $output = array(
@@ -46,6 +45,24 @@ List jobs by pipeline:
 
 ```php
 AWS_ET::listJobsByPipeline( string $pipelineId [, $ascending = true ] );
+```
+
+List jobs by status:
+
+```php
+AWS_ET::listJobsByPipeline( string $status );
+```
+
+Get job info:
+
+```php
+AWS_ET::readJobs( string $jobId );
+```
+
+Cancel a job:
+
+```php
+AWS_ET::cancelJobs( string $jobId );
 ```
 
 #### License ####
