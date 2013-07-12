@@ -1,7 +1,7 @@
 <?php
 /**
  * Amazon Elastic Transcoder class
- * Version 1.0
+ * Version 1.0.1
  * https://github.com/LPology/ElasticTranscoderPHP
  *
  * Copyright 2013 LPology, LLC
@@ -12,12 +12,12 @@ class AWS_ET {
 
   private static $AwsAccessKey;
   private static $AwsPrivateKey;
-  private static $Region = 'us-east-1';  
+  private static $Region = 'us-east-1';
   private static $Date;
   private static $RequestBody;
   private static $HttpRequestMethod;
   private static $Uri;
-  private static $Headers = array();
+  private static $Headers;
   private static $ResponseStatus;
   private static $Response;
   private static $ErrorMsg;
@@ -431,13 +431,13 @@ class AWS_ET {
     self::$AwsAccessKey = $awsAccessKey;
     self::$AwsPrivateKey = $awsPrivateKey;
   }
-  
+
   /**
   * Set Amazon region
   *
   * @param string $region AWS region
   * @return void
-  */    
+  */
   public static function setRegion($region) {
     self::$Region = strtolower($region);
   }
@@ -497,6 +497,7 @@ class AWS_ET {
   */
   private static function sendRequest() {
     $endpoint = 'elastictranscoder.'.self::$Region.'.amazonaws.com';
+    self::$Headers = array();
     self::$Date = new DateTime('UTC');
     self::setHeader('Host', $endpoint);
     self::setHeader('x-amz-date', self::$Date->format('Ymd\THis\Z'));
