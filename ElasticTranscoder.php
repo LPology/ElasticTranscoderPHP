@@ -1,7 +1,7 @@
 <?php
 /**
  * Amazon Elastic Transcoder class
- * Version 1.0.1
+ * Version 1.0.2
  * https://github.com/LPology/ElasticTranscoderPHP
  *
  * Copyright 2013 LPology, LLC
@@ -42,6 +42,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function createJob($input, $outputs, $pipelineId, $outputKeyPrefix = null, $playlists = array()) {
+    self::resetProps();
     self::$HttpRequestMethod = 'POST';
     self::$Uri = '/2012-09-25/jobs';
     $requestBody = array(
@@ -94,6 +95,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function listJobsByPipeline($pipelineId, $ascending = true) {
+    self::resetProps();
     self::$HttpRequestMethod = 'GET';
     if ($ascending) {
       $ascending = 'true';
@@ -112,6 +114,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function listJobsByStatus($status) {
+    self::resetProps();
     self::$HttpRequestMethod = 'GET';
     self::$Uri = '/2012-09-25/jobsByStatus/'.$status;
     $result = self::sendRequest();
@@ -125,6 +128,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function readJob($jobId) {
+    self::resetProps();
     self::$HttpRequestMethod = 'GET';
     self::$Uri = '/2012-09-25/jobs/'.$jobId;
     $result = self::sendRequest();
@@ -138,6 +142,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function cancelJob($jobId) {
+    self::resetProps();
     self::$HttpRequestMethod = 'DELETE';
     self::$Uri = '/2012-09-25/jobs/'.$jobId;
     $result = self::sendRequest();
@@ -147,28 +152,35 @@ class AWS_ET {
   /**
   * Create a new pipeline
   *
-  * @param string $name pipeline name
-  * @param string $inputBucket input bucket
-  * @param string $outPutBucket output bucket
-  * @param string $role IAM Amazon Resource Name (ARN)
-  * @param array $notifications notification settings
+  * @param array $options settings
   * @return array | false
   */
-  public static function createPipeline($name, $inputBucket, $outputBucket, $role, $notifications = array()) {
+  public static function createPipeline($options = array()) {
+    self::resetProps();
     self::$HttpRequestMethod = 'POST';
     self::$Uri = '/2012-09-25/pipelines';
-    $requestBody = json_encode(array(
-      'Name' => $name,
-      'InputBucket' => $inputBucket,
-      'OutputBucket' => $outputBucket,
-      'Role' => $role,
+    $requestBody = array(
+      'Name' => $options['Name'],
+      'Role' => $options['Role'],      
+      'InputBucket' => $options['InputBucket'],
       'Notifications' => array(
-          'Progressing' => (array_key_exists('Progressing', $notifications)) ? $notifications['Progressing'] : '',
-          'Completed' => (array_key_exists('Completed', $notifications)) ? $notifications['Completed'] : '',
-          'Warning' => (array_key_exists('Warning', $notifications)) ? $notifications['Warning'] : '',
-          'Error' => (array_key_exists('Error', $notifications)) ? $notifications['Error'] : ''
+          'Progressing' => (array_key_exists('Notifications', $options) && array_key_exists('Progressing', $options['Notifications']['Progressing'])) ? $options['Notifications']['Progressing'] : '',
+          'Completed' => (array_key_exists('Notifications', $options) && array_key_exists('Completed', $options['Notifications']['Completed'])) ? $options['Notifications']['Completed'] : '',
+          'Warning' => (array_key_exists('Notifications', $options) && array_key_exists('Warning', $options['Notifications']['Warning'])) ? $options['Notifications']['Warning'] : '',
+          'Error' => (array_key_exists('Notifications', $options) && array_key_exists('Error', $options['Notifications']['Error'])) ? $options['Notifications']['Error'] : ''
         )
-      ));
+      );                
+    // Either OutputBucket or ContentConfig with ThumbnailConfig are required
+    if (array_key_exists('OutputBucket', $options)) {
+      $requestBody['OutputBucket'] = $options['OutputBucket'];
+    } elseif (array_key_exists('ContentConfig', $options) && array_key_exists('ThumbnailConfig', $options)) {
+      $requestBody['ContentConfig'] = $options['ContentConfig'];
+      $requestBody['ThumbnailConfig'] = $options['ThumbnailConfig'];
+    } else {
+      self::setErrorMsg('Missing parameters. OutputBucket or ContentConfig with ThumbnailConfig are required.');
+      return false;
+    }    
+    $requestBody = json_encode($requestBody);
     self::setRequestBody($requestBody);
     $result = self::sendRequest();
     return $result;
@@ -180,6 +192,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function listPipelines() {
+    self::resetProps();
     self::$HttpRequestMethod = 'GET';
     self::$Uri = '/2012-09-25/pipelines';
     $result = self::sendRequest();
@@ -193,6 +206,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function readPipeline($pipelineId) {
+    self::resetProps();
     self::$HttpRequestMethod = 'GET';
     self::$Uri = '/2012-09-25/pipelines/'.$pipelineId;
     $result = self::sendRequest();
@@ -207,6 +221,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function updatePipeline($pipelineId, $updates) {
+    self::resetProps();
     self::$HttpRequestMethod = 'PUT';
     self::$Uri = '/2012-09-25/pipelines/'.$pipelineId;
     $requestBody = json_encode($updates);
@@ -223,6 +238,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function updatePipelineStatus($pipelineId, $status) {
+    self::resetProps();
     self::$HttpRequestMethod = 'POST';
     self::$Uri = '/2012-09-25/pipelines/'.$pipelineId.'/status';
     $requestBody = json_encode(array('Status' => $status));
@@ -239,6 +255,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function updatePipelineNotifications($pipelineId, $notifications = array()) {
+    self::resetProps();
     self::$HttpRequestMethod = 'POST';
     self::$Uri = '/2012-09-25/pipelines/'.$pipelineId.'/notifications';
     $requestBody = json_encode(array(
@@ -262,6 +279,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function deletePipeline($pipelineId) {
+    self::resetProps();
     self::$HttpRequestMethod = 'DELETE';
     self::$Uri = '/2012-09-25/pipelines/'.$pipelineId;
     $result = self::sendRequest();
@@ -278,6 +296,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function testRole($inputBucket, $outputBucket, $role, $topics = array()) {
+    self::resetProps();
     self::$HttpRequestMethod = 'POST';
     self::$Uri = '/2012-09-25/roleTests';
     $requestBody = json_encode(array(
@@ -303,6 +322,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function createPreset($name, $description, $container = 'mp4', $audio = array(), $video = array(), $thumbnails = array()) {
+    self::resetProps();
     self::$HttpRequestMethod = 'POST';
     self::$Uri = '/2012-09-25/presets';
     $requestBody = array(
@@ -388,6 +408,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function listPresets() {
+    self::resetProps();
     self::$HttpRequestMethod = 'GET';
     self::$Uri = '/2012-09-25/presets';
     $result = self::sendRequest();
@@ -401,6 +422,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function readPreset($presetId) {
+    self::resetProps();
     self::$HttpRequestMethod = 'GET';
     self::$Uri = '/2012-09-25/presets/'.$presetId;
     $result = self::sendRequest();
@@ -414,6 +436,7 @@ class AWS_ET {
   * @return array | false
   */
   public static function deletePreset($presetId) {
+    self::resetProps();
     self::$HttpRequestMethod = 'DELETE';
     self::$Uri = '/2012-09-25/presets/'.$presetId;
     $result = self::sendRequest();
@@ -458,7 +481,7 @@ class AWS_ET {
   */
   public static function getResponse() {
     return self::$Response;
-  }
+  } 
 
   /**
   * Get error message after unsuccessful request
@@ -468,6 +491,16 @@ class AWS_ET {
   public static function getErrorMsg() {
     return self::$ErrorMsg;
   }
+  
+  /**
+  * Set error message
+  *
+  * @param string $error error message
+  * @return void
+  */
+  private static function setErrorMsg($error) {
+    self::$ErrorMsg = $error;
+  }   
 
   /**
   * Set request body
@@ -478,6 +511,17 @@ class AWS_ET {
   private static function setRequestBody($body) {
     self::$RequestBody = $body;
   }
+  
+  /**
+  * Reset property values
+  *
+  * @return void
+  */
+  private static function resetProps() {
+    self::$Headers = array();
+    self::$Date = new DateTime('UTC');  
+    self::$RequestBody = null;
+  }  
 
   /**
   * Set request header
@@ -497,8 +541,6 @@ class AWS_ET {
   */
   private static function sendRequest() {
     $endpoint = 'elastictranscoder.'.self::$Region.'.amazonaws.com';
-    self::$Headers = array();
-    self::$Date = new DateTime('UTC');
     self::setHeader('Host', $endpoint);
     self::setHeader('x-amz-date', self::$Date->format('Ymd\THis\Z'));
     self::setAuthorizationHeader();
@@ -527,7 +569,7 @@ class AWS_ET {
     $result = curl_exec($curl);
 
     if ($result === false)
-      self::$ErrorMsg = 'Curl failed. Error code: '.curl_errno($curl).' Message: '.curl_error($curl);
+      self::setErrorMsg('Curl failed. Error code: '.curl_errno($curl).' Message: '.curl_error($curl));
     else
       self::$ResponseStatus  = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
@@ -544,9 +586,9 @@ class AWS_ET {
 
     // Apparently "Message" is not always capitalized
     if (isset($response['message']))
-      self::$ErrorMsg = $response['message'];
+      self::setErrorMsg($response['message']);
     if (isset($response['Message']))
-      self::$ErrorMsg = $response['Message'];
+      self::setErrorMsg($response['Message']);
     return false;
   }
 
