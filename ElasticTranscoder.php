@@ -521,6 +521,9 @@ class AWS_ET {
     self::$Headers = array();
     self::$Date = new DateTime('UTC');  
     self::$RequestBody = null;
+    self::$ResponseStatus = null;
+    self::$Response = null;
+    self::$ErrorMsg = null;
   }  
 
   /**
