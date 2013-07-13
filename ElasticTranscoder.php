@@ -161,7 +161,7 @@ class AWS_ET {
     self::$Uri = '/2012-09-25/pipelines';
     $requestBody = array(
       'Name' => $options['Name'],
-      'Role' => $options['Role'],      
+      'Role' => $options['Role'],
       'InputBucket' => $options['InputBucket'],
       'Notifications' => array(
           'Progressing' => (array_key_exists('Notifications', $options) && array_key_exists('Progressing', $options['Notifications']['Progressing'])) ? $options['Notifications']['Progressing'] : '',
@@ -169,7 +169,7 @@ class AWS_ET {
           'Warning' => (array_key_exists('Notifications', $options) && array_key_exists('Warning', $options['Notifications']['Warning'])) ? $options['Notifications']['Warning'] : '',
           'Error' => (array_key_exists('Notifications', $options) && array_key_exists('Error', $options['Notifications']['Error'])) ? $options['Notifications']['Error'] : ''
         )
-      );                
+      );
     // Either OutputBucket or ContentConfig with ThumbnailConfig are required
     if (array_key_exists('OutputBucket', $options)) {
       $requestBody['OutputBucket'] = $options['OutputBucket'];
@@ -179,7 +179,7 @@ class AWS_ET {
     } else {
       self::setErrorMsg('Missing parameters. OutputBucket or ContentConfig with ThumbnailConfig are required.');
       return false;
-    }    
+    }
     $requestBody = json_encode($requestBody);
     self::setRequestBody($requestBody);
     $result = self::sendRequest();
@@ -481,7 +481,7 @@ class AWS_ET {
   */
   public static function getResponse() {
     return self::$Response;
-  } 
+  }
 
   /**
   * Get error message after unsuccessful request
@@ -491,7 +491,7 @@ class AWS_ET {
   public static function getErrorMsg() {
     return self::$ErrorMsg;
   }
-  
+
   /**
   * Set error message
   *
@@ -500,7 +500,7 @@ class AWS_ET {
   */
   private static function setErrorMsg($error) {
     self::$ErrorMsg = $error;
-  }   
+  }
 
   /**
   * Set request body
@@ -511,20 +511,6 @@ class AWS_ET {
   private static function setRequestBody($body) {
     self::$RequestBody = $body;
   }
-  
-  /**
-  * Reset property values
-  *
-  * @return void
-  */
-  private static function resetProps() {
-    self::$Headers = array();
-    self::$Date = new DateTime('UTC');  
-    self::$RequestBody = null;
-    self::$ResponseStatus = null;
-    self::$Response = null;
-    self::$ErrorMsg = null;
-  }  
 
   /**
   * Set request header
@@ -535,6 +521,20 @@ class AWS_ET {
   */
   private static function setHeader($key, $value) {
     self::$Headers[$key] = $value;
+  }
+
+  /**
+  * Reset property values
+  *
+  * @return void
+  */
+  private static function resetProps() {
+    self::$Headers = array();
+    self::$Date = new DateTime('UTC');
+    self::$RequestBody = null;
+    self::$ResponseStatus = null;
+    self::$Response = null;
+    self::$ErrorMsg = null;
   }
 
   /**
