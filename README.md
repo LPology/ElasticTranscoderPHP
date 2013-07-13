@@ -119,7 +119,7 @@ AWS_ET::testRole( string $inputBucket, string $outputBucket, string $role, array
 Create a preset:
 
 ```php
-AWS_ET::createPreset( string $name, string $description [, string $container = 'mp4' ] [, array $audio ] [, array $video ] [, array $thumbnails ]);
+AWS_ET::createPreset( array $options );
 ```
 
 List all presets:
