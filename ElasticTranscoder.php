@@ -600,7 +600,7 @@ class AWS_ET {
     return reset($unpack);
   }
 
-  private function parseCanonicalUri($url) {
+  private static function parseCanonicalUri($url) {
     $parts = parse_url($url);
     $str = '';
     if (isset($parts['scheme'])) {
